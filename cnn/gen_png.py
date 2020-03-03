@@ -7,7 +7,7 @@ from PIL import Image, ImageDraw, ImageFont
 
 def parse_assign(f, mat_row, mat_col, num_cycle):
     assign = []
-    for k in range(0, num_cycle + 1):
+    for k in range(0, num_cycle):
         assign_ = []
         for i in range(0, mat_row):
             for j in range(0, mat_col):
@@ -29,7 +29,7 @@ def parse_assign(f, mat_row, mat_col, num_cycle):
 
 def parse_com(f, mat_row, mat_col, num_cycle, assign):
     com = []
-    for k in range(0, num_cycle):
+    for k in range(0, num_cycle-1):
         com_ = []
         for i in range(0, mat_row * mat_col):
             com__ = []            
@@ -88,12 +88,12 @@ def gen_img(mat_row, mat_col, num_cycle, assign, com):
     arrowsize = 10
     padding = rectsize
     margin = padding // 2
-    img = [Image.new('RGB', ((rectsize + padding) * mat_col, (rectsize + padding) * mat_row), white) for i in range(0, num_cycle + 1)]
-    draw = [ImageDraw.Draw(img[i]) for i in range(0, num_cycle + 1)]
+    img = [Image.new('RGB', ((rectsize + padding) * mat_col, (rectsize + padding) * mat_row), white) for i in range(0, num_cycle)]
+    draw = [ImageDraw.Draw(img[i]) for i in range(0, num_cycle)]
     font = ImageFont.truetype('/usr/share/fonts/dejavu/DejaVuSerif.ttf', fontsize, encoding='utf-8')
     font2 = ImageFont.truetype('/usr/share/fonts/dejavu/DejaVuSerif.ttf', 30, encoding='utf-8')
 
-    for k in range(0, num_cycle + 1):
+    for k in range(0, num_cycle):
 #        draw[k].rectangle((0, (rectsize + padding) * mat_row * k, (rectsize + padding) * mat_col - 1, (rectsize + padding) * mat_row * (k + 1) - 1), outline=black)
         draw[k].text((0, 0), "Cycle" + str(k+1), font=font2, fill=black)
         for i in range(0, mat_row):
@@ -123,7 +123,7 @@ def gen_img(mat_row, mat_col, num_cycle, assign, com):
                         next_dx = size[0]
 
     if com:
-        for k in range(0, num_cycle):
+        for k in range(0, num_cycle-1):
             for i_from in range(0, mat_row):
                 for j_from in range(0, mat_col):
                     node_from = j_from + i_from * mat_col
@@ -216,7 +216,7 @@ if __name__ == "__main__":
     
     try:
 #        img[0].save(assign_file_name + "_2.gif", save_all=True, append_images=img[1:], optimize=False, duration=1000, loop=0)
-        for i in range(0, num_cycle + 1):
+        for i in range(0, num_cycle):
             img[i].save("img" + str(i+1) + ".png")
     except:
         print("image file ([assignment file name].png) cannot be open")

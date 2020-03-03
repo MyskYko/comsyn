@@ -539,7 +539,8 @@ int main(int argc, char ** argv) {
 
   string res_file_name = "_" + setting_file_name + ".out";
   string log_file_name = "_" + setting_file_name + ".log";
-  string sat_cmd = "minisat " + cnf_file_name + " " + res_file_name + " > " + log_file_name;
+  //  string sat_cmd = "minisat " + cnf_file_name + " " + res_file_name + " > " + log_file_name;
+  string sat_cmd = "plingeling " + cnf_file_name + " > " + res_file_name;
   system(sat_cmd.c_str());
 
   string log_cmd = "echo \"" + cnf_header + "\" >> " + log_file_name;
